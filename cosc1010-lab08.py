@@ -12,29 +12,22 @@
 # If they can't be converted return false
 # Other wise return the converted int or float 
 # Floats should only have one decimal point in them 
-def Checker(string):
-    dot=0
-    letter=False
-    for char in string:
-        numb=False
-        for num in range(0,10):
-            #print(numb)
-            if(char==str(num)):
-                numb=True
-                break
-        if(numb==False):
-            if(char=="."):
-                dot=+1
-            else:
-                letter=True
-            if(dot>1 or letter==True):
-                return(False)
-    if(dot==1):
-        return(float(string))
+def type_test(x,a=False):
+    if(a==False):
+        try:
+            float(x)
+            try:
+                return(int(x))
+            except ValueError:
+                return(float(x))
+        except ValueError:
+            return(False)
     else:
-        return(int(string))
-
-print(Checker(input("please enter a string, interger, or float: ")))
+        try:
+            return(int(x))
+        except ValueError: 
+            return(False)
+print(type_test(input("please enter a int or float: ")))
 print("*" * 75)
 
 
@@ -57,26 +50,13 @@ print("*" * 75)
 # Exit on the word exit
 # Remember all inputs are strings, but the function needs ints or floats
 # Call your function and print the resulting list
-def mb_test(mb):
-    try:
-        return(float(mb))
-    except ValueError:
-        print(mb)
-        return False
-    
-def a_test(a):
-    try:
-        return(int(a))
-    except ValueError:
-        print(a)
-        return False
     
 def point_slope(m,b,a,an):
     y_val=[]
-    m=mb_test(m)
-    b=mb_test(b)
-    a=a_test(a)
-    an=a_test(an)
+    m=type_test(m)
+    b=type_test(b)
+    a=type_test(a,True)
+    an=type_test(an,True)
     if(m==False or b==False or a==False or an==False):
         return False
     else:
@@ -88,7 +68,7 @@ def point_slope(m,b,a,an):
                  y_val.append(round(val, 2))
     return(y_val)
 
-def user_input():
+def user_pythag():
     while True:
         user= (input("Please enter a string(slope,intercept,lower x,upper x) or use exit to exit: ")).lower()
         if(user=="exit"):
@@ -108,7 +88,7 @@ def user_input():
                 print(val)
 
 
-user_input()
+user_pythag()
 
 print("*" * 75)
 
@@ -120,3 +100,45 @@ print("*" * 75)
 # Create a loop like above to prompt the user for input for the three values
 # Create a second function that just does the square root operation 
     # If the number you are trying to take the square root of is negative, return null
+
+def user_quad():
+    while True:
+        user= (input("Please enter a,b,c for quadratic formula or use exit to exit: ")).lower()
+        if(user=="exit"):
+            break
+        user=user.split(",")
+        print(user)
+        a=user[0]
+        b=user[1]
+        c=user[2]
+        user=quad_form(a,b,c)
+        if(user==False):
+            print("The string entered did not meet criteria")
+        else:
+            print(f"The quadradic form of {a}, {b}, {c} is:")
+            for val in user:
+                print(val)
+
+def quad_form(a,b,c):
+    vals=[]
+    a=type_test(a)
+    b=type_test(b)
+    c=type_test(c)
+    if a==False or b==False or c== False:
+        return(False)
+    else:
+        if ((b**2-4*a*c)**.5) > 0 :
+            disc= b**2 - 4 * a * c
+            print(disc)
+            top= -b + (disc**.5)
+            full=top / (2 * a)
+            vals.append(round(full,3))
+            top= -b - (disc**.5)
+            full=top / (2 * a)
+            vals.append(round(full,3))
+
+        else:
+            vals.append("null")
+        return(vals)
+    
+user_quad()
