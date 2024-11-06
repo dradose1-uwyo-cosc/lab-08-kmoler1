@@ -34,7 +34,7 @@ def Checker(string):
     else:
         return(int(string))
 
-print(Checker(input("str: ")))
+print(Checker(input("please enter a string, interger, or float: ")))
 print("*" * 75)
 
 
@@ -61,12 +61,14 @@ def mb_test(mb):
     try:
         return(float(mb))
     except ValueError:
+        print(mb)
         return False
     
 def a_test(a):
     try:
         return(int(a))
     except ValueError:
+        print(a)
         return False
     
 def point_slope(m,b,a,an):
@@ -86,38 +88,27 @@ def point_slope(m,b,a,an):
                  y_val.append(round(val, 2))
     return(y_val)
 
-  def user_input():
+def user_input():
     while True:
-        m=""
-        b=""
-        a=""
-        an=""
-        var=0
-        y_val=[]
-         user=lower(input("Please enter a string(slope,intercept,lower x,upper x) or use exit to exit: "))
+        user= (input("Please enter a string(slope,intercept,lower x,upper x) or use exit to exit: ")).lower()
         if(user=="exit"):
             break
-        for part in user:
-            if(part==","):
-                var+=1
-            elif(var==0):
-                m+=part
-            elif(var==1):
-                b+=part
-            elif(var==2):
-                a+=part
-            else:
-                an+=part
+        user=user.split(",")
+        print(user)
+        m=user[0]
+        b=user[1]
+        a=user[2]
+        an=user[3]
         user=point_slope(m,b,a,an)
-        if(user=False):
+        if(user==False):
             print("The string entered did not meet criteria")
         else:
             print(f"The x values from {a} to {an} for the equation y={m}x+{b} are:")
-            for val in y_val:
+            for val in user:
                 print(val)
 
 
-
+user_input()
 
 print("*" * 75)
 
