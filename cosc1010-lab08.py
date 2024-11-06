@@ -87,14 +87,16 @@ def point_slope(m,b,a,an):
     return(y_val)
 
   def user_input():
-    user=input("Please enter a string(slope,intercept,lower x,upper x) or use exit to exit: ")
-    while(user!="exit"):
+    while True:
         m=""
         b=""
         a=""
         an=""
         var=0
         y_val=[]
+         user=lower(input("Please enter a string(slope,intercept,lower x,upper x) or use exit to exit: "))
+        if(user=="exit"):
+            break
         for part in user:
             if(part==","):
                 var+=1
@@ -113,7 +115,6 @@ def point_slope(m,b,a,an):
             print(f"The x values from {a} to {an} for the equation y={m}x+{b} are:")
             for val in y_val:
                 print(val)
-        user=input("Please enter a string(slope,intercept,lower x,upper x) or use exit to exit: ")
 
 
 
