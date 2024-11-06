@@ -1,20 +1,40 @@
-# Your Name Here
+# Kaleb Moler
 # UWYO COSC 1010
-# Submission Date
-# Lab XX
-# Lab Section:
+# 11/06/24
+# Lab 08
+# Lab Section:15
 # Sources, people worked with, help given to:
-# your
-# comments
-# here
+# Jay Trujio, Jhett Carr
+
 
 
 # Write a function that will properly check strings to see if they are an int or float, and convert them if so
 # If they can't be converted return false
 # Other wise return the converted int or float 
 # Floats should only have one decimal point in them 
+def Checker(string):
+    dot=0
+    letter=False
+    for char in string:
+        numb=False
+        for num in range(0,10):
+            #print(numb)
+            if(char==str(num)):
+                numb=True
+                break
+        if(numb==False):
+            if(char=="."):
+                dot=+1
+            else:
+                letter=True
+            if(dot>1 or letter==True):
+                return(False)
+    if(dot==1):
+        return(float(string))
+    else:
+        return(int(string))
 
-
+print(Checker(input("str: ")))
 print("*" * 75)
 
 
@@ -37,6 +57,66 @@ print("*" * 75)
 # Exit on the word exit
 # Remember all inputs are strings, but the function needs ints or floats
 # Call your function and print the resulting list
+def mb_test(mb):
+    try:
+        return(float(mb))
+    except ValueError:
+        return False
+    
+def a_test(a):
+    try:
+        return(int(a))
+    except ValueError:
+        return False
+    
+def point_slope(m,b,a,an):
+    y_val=[]
+    m=mb_test(m)
+    b=mb_test(b)
+    a=a_test(a)
+    an=a_test(an)
+    if(m==False or b==False or a==False or an==False):
+        return False
+    else:
+        for x in range(a,an+1):
+            val=(m*x+b)
+            if isinstance(val, int):
+                y_val.append(int(val))
+            else:
+                 y_val.append(round(val, 2))
+    return(y_val)
+
+  def user_input():
+    user=input("Please enter a string(slope,intercept,lower x,upper x) or use exit to exit: ")
+    while(user!="exit"):
+        m=""
+        b=""
+        a=""
+        an=""
+        var=0
+        y_val=[]
+        for part in user:
+            if(part==","):
+                var+=1
+            elif(var==0):
+                m+=part
+            elif(var==1):
+                b+=part
+            elif(var==2):
+                a+=part
+            else:
+                an+=part
+        user=point_slope(m,b,a,an)
+        if(user=False):
+            print("The string entered did not meet criteria")
+        else:
+            print(f"The x values from {a} to {an} for the equation y={m}x+{b} are:")
+            for val in y_val:
+                print(val)
+        user=input("Please enter a string(slope,intercept,lower x,upper x) or use exit to exit: ")
+
+
+
 
 print("*" * 75)
 
