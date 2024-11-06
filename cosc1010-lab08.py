@@ -28,6 +28,7 @@ def type_test(x,a=False):
         except ValueError: 
             return(False)
 print(type_test(input("please enter a int or float: ")))
+print(type_test(-5,True))
 print("*" * 75)
 
 
@@ -54,32 +55,38 @@ print("*" * 75)
 def point_slope(m,b,a,an):
     y_val=[]
     m=type_test(m)
+
     b=type_test(b)
+
     a=type_test(a,True)
+
     an=type_test(an,True)
-    if(m==False or b==False or a==False or an==False):
+ 
+    if((m==False and m !=0) or (b==False and b!=0) or (a==False and a!=0) or (an==False and an!=0)):
         return False
     else:
-        for x in range(a,an+1):
+        x=a
+        while x <= an:
             val=(m*x+b)
-            if isinstance(val, int):
-                y_val.append(int(val))
-            else:
-                 y_val.append(round(val, 2))
+            y_val.append(round(val, 2))
+            x+=1
     return(y_val)
 
 def user_pythag():
     while True:
-        user= (input("Please enter a string(slope,intercept,lower x,upper x) or use exit to exit: ")).lower()
+        user= (input("Please enter a string(slope,intercept,lower_x,upper_x) or use exit to exit: ")).lower()
         if(user=="exit"):
             break
-        user=user.split(",")
+        if("," in user):
+            user=user.split(",")
+            m=user[0]
+            b=user[1]
+            a=user[2]
+            an=user[3]
+            user=point_slope(m,b,a,an)
+        else:
+            user==False
         print(user)
-        m=user[0]
-        b=user[1]
-        a=user[2]
-        an=user[3]
-        user=point_slope(m,b,a,an)
         if(user==False):
             print("The string entered did not meet criteria")
         else:
@@ -106,13 +113,14 @@ def user_quad():
         user= (input("Please enter a,b,c for quadratic formula or use exit to exit: ")).lower()
         if(user=="exit"):
             break
-        user=user.split(",")
-        print(user)
-        a=user[0]
-        b=user[1]
-        c=user[2]
-        user=quad_form(a,b,c)
-        if(user==False):
+        if "," in user:
+            user=user.split(",")
+            print(user)
+            a=user[0]
+            b=user[1]
+            c=user[2]
+            user=quad_form(a,b,c)
+        if(user==False or ("," in user)==False):
             print("The string entered did not meet criteria")
         else:
             print(f"The quadradic form of {a}, {b}, {c} is:")
@@ -124,10 +132,10 @@ def quad_form(a,b,c):
     a=type_test(a)
     b=type_test(b)
     c=type_test(c)
-    if a==False or b==False or c== False:
+    if (a==False and a!=0) or (b==False and b!=0) or (c== False and c!=0):
         return(False)
     else:
-        if ((b**2-4*a*c)**.5) > 0 :
+        if ((b**2-4*a*c)**.5) is complex :
             disc= b**2 - 4 * a * c
             print(disc)
             top= -b + (disc**.5)
