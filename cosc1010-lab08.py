@@ -28,7 +28,6 @@ def type_test(x,a=False):
         except ValueError: 
             return(False)
 print(type_test(input("please enter a int or float: ")))
-print(type_test(-5,True))
 print("*" * 75)
 
 
@@ -119,12 +118,12 @@ def user_quad():
             a=user[0]
             b=user[1]
             c=user[2]
-            user=quad_form(a,b,c)
-        if(user==False or ("," in user)==False):
+            ans=quad_form(a,b,c)
+        if(user==False):
             print("The string entered did not meet criteria")
         else:
             print(f"The quadradic form of {a}, {b}, {c} is:")
-            for val in user:
+            for val in ans:
                 print(val)
 
 def quad_form(a,b,c):
@@ -132,18 +131,19 @@ def quad_form(a,b,c):
     a=type_test(a)
     b=type_test(b)
     c=type_test(c)
-    if (a==False and a!=0) or (b==False and b!=0) or (c== False and c!=0):
+    if (a==False) or (b==False and b!=0) or (c== False and c!=0):
+        print("error")
         return(False)
     else:
-        if ((b**2-4*a*c)**.5) is complex :
-            disc= b**2 - 4 * a * c
+        disc= ((b**2) - (4 * a * c))**.5
+        if (isinstance(disc, complex)==False):
             print(disc)
-            top= -b + (disc**.5)
+            top= -b + disc
             full=top / (2 * a)
-            vals.append(round(full,3))
-            top= -b - (disc**.5)
+            vals.append(round(float(full),3))
+            top= -b - disc
             full=top / (2 * a)
-            vals.append(round(full,3))
+            vals.append(round(float(full),3))
 
         else:
             vals.append("null")
